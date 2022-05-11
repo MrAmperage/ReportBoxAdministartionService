@@ -1,0 +1,2 @@
+# ReportBoxAdministartionService
+Сервис администрирования для ReportBox
