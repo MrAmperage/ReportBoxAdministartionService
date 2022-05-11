@@ -1,6 +1,9 @@
 package ORM
 
-import "github.com/MrAmperage/GoWebStruct/WebCore/Modules/ORMModule"
+import (
+	"github.com/MrAmperage/GoWebStruct/WebCore/Modules/ORMModule"
+	"gorm.io/gorm"
+)
 
 type User struct {
 	Username string `gorm:"primaryKey;not null;username"`
@@ -13,7 +16,7 @@ type UserORM struct {
 	ORMModule.ORM
 }
 
-func (UserORM *UserORM) AddUser(NewUser User) {
+func (UserORM *UserORM) AddUser(NewUser User) (SQLResult *gorm.DB) {
 
-	UserORM.ConnectionLink.Create(NewUser)
+	return UserORM.ConnectionLink.Create(NewUser)
 }
