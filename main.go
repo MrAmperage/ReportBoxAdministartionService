@@ -44,6 +44,7 @@ func main() {
 		fmt.Println(Error)
 	}
 	Subscribe.MessageEmmiter.Handler("Users", Controllers.AddUser).Method("POST")
+	Subscribe.MessageEmmiter.Handler("Users", Controllers.DeleteUser).Method("DELETE")
 
 	Subscribe.MessageProcessing(&ReportBoxDatabase.ORMs)
 

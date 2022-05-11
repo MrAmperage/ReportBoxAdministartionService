@@ -16,6 +16,11 @@ type UserORM struct {
 	ORMModule.ORM
 }
 
+func (UserORM *UserORM) DeleteUser(Username string) (SQLResult *gorm.DB) {
+
+	return UserORM.ConnectionLink.Delete(&User{Username: Username})
+
+}
 func (UserORM *UserORM) AddUser(NewUser User) (SQLResult *gorm.DB) {
 
 	return UserORM.ConnectionLink.Create(NewUser)

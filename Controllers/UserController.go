@@ -19,3 +19,16 @@ func AddUser(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data any, Error er
 	UserORM := ORMElement.(*ORM.UserORM)
 	return "Пользователь добавлен", UserORM.AddUser(NewUser).Error
 }
+
+func DeleteUser(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data any, Error error) {
+
+	Username := string(Message.Body)
+	ORMElement, Error := ORMs.FindByName("UserORM")
+	if Error != nil {
+
+		return
+	}
+	UserORM := ORMElement.(*ORM.UserORM)
+
+	return "Пользователь удален", UserORM.DeleteUser(Username).Error
+}
