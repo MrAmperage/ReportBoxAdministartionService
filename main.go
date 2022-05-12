@@ -43,8 +43,10 @@ func main() {
 	if Error != nil {
 		fmt.Println(Error)
 	}
+	Subscribe.MessageEmmiter.Handler("Users", Controllers.GetUsers).Method("GET")
 	Subscribe.MessageEmmiter.Handler("Users", Controllers.AddUser).Method("POST")
 	Subscribe.MessageEmmiter.Handler("Users", Controllers.DeleteUser).Method("DELETE")
+	Subscribe.MessageEmmiter.Handler("Users", Controllers.EditUser).Method("PATCH")
 
 	Subscribe.MessageProcessing(&ReportBoxDatabase.ORMs)
 

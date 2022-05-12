@@ -32,3 +32,26 @@ func DeleteUser(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data any, Error
 
 	return "Пользователь удален", UserORM.DeleteUser(Username).Error
 }
+
+func EditUser(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data any, Error error) {
+	var EditUser ORM.User
+	json.Unmarshal(Message.Body, &EditUser)
+	ORMElement, Error := ORMs.FindByName("UserORM")
+	if Error != nil {
+
+		return
+	}
+	UserORM := ORMElement.(*ORM.UserORM)
+	return "Пользователь изменен", UserORM.EditUser(EditUser).Error
+
+}
+
+func GetUsers(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data any, Error error) {
+	ORMElement, Error := ORMs.FindByName("UserORM")
+	if Error != nil {
+
+		return
+	}
+	UserORM := ORMElement.(*ORM.UserORM)
+	return UserORM.GetUsers()
+}
