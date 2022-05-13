@@ -21,3 +21,8 @@ func (SchemeORM *SchemeORM) AddScheme(NewScheme Scheme) (SQLResult *gorm.DB) {
 
 	return SchemeORM.ConnectionLink.Create(&NewScheme)
 }
+
+func (SchemeORM *SchemeORM) DeleteScheme(SchemeId uuid.UUID) (SQLResult *gorm.DB) {
+
+	return SchemeORM.ConnectionLink.Delete(&Scheme{Id: SchemeId})
+}
