@@ -23,12 +23,12 @@ func (UserORM *UserORM) DeleteUser(Username string) (SQLResult *gorm.DB) {
 }
 func (UserORM *UserORM) AddUser(NewUser User) (SQLResult *gorm.DB) {
 
-	return UserORM.ConnectionLink.Create(NewUser)
+	return UserORM.ConnectionLink.Create(&NewUser)
 }
 
 func (UserORM *UserORM) EditUser(NewUser User) (SQLResult *gorm.DB) {
 
-	return UserORM.ConnectionLink.Updates(NewUser)
+	return UserORM.ConnectionLink.Updates(&NewUser)
 }
 
 func (UserORM *UserORM) GetUsers() (Users []User, Error error) {

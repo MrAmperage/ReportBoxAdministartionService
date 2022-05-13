@@ -10,6 +10,7 @@ require (
 )
 
 require (
+	github.com/gofrs/uuid v4.2.0+incompatible
 	github.com/gorilla/mux v1.8.0 // indirect
 	github.com/jackc/chunkreader/v2 v2.0.1 // indirect
 	github.com/jackc/pgconn v1.12.1 // indirect

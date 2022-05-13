@@ -17,6 +17,8 @@ func main() {
 		fmt.Println(ErrorInitService)
 		os.Exit(0)
 	}
+	SchemeORM := &ORM.SchemeORM{}
+	SchemeORM.SetName("SchemeORM")
 	UserORM := &ORM.UserORM{}
 	UserORM.SetName("UserORM")
 	ReportBoxDatabase, Error := AuthenticationService.WebCore.PostgreSQL.FindByName("ReportBoxDatabase")
@@ -25,6 +27,7 @@ func main() {
 	}
 
 	ReportBoxDatabase.ORMs.Add(UserORM)
+	ReportBoxDatabase.ORMs.Add(SchemeORM)
 	ErrorDatabaseConnection := AuthenticationService.WebCore.PostgreSQL.StartDatabaseConnections()
 	if ErrorDatabaseConnection != nil {
 
@@ -47,6 +50,7 @@ func main() {
 	Subscribe.MessageEmmiter.Handler("Users", Controllers.AddUser).Method("POST")
 	Subscribe.MessageEmmiter.Handler("Users", Controllers.DeleteUser).Method("DELETE")
 	Subscribe.MessageEmmiter.Handler("Users", Controllers.EditUser).Method("PATCH")
+	Subscribe.MessageEmmiter.Handler("Schemes", Controllers.AddScheme).Method("POST")
 
 	Subscribe.MessageProcessing(&ReportBoxDatabase.ORMs)
 
