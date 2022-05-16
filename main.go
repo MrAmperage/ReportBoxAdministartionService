@@ -55,6 +55,7 @@ func main() {
 	Subscribe.MessageEmmiter.Handler("Schemes", Controllers.AddScheme).Method("POST")
 	Subscribe.MessageEmmiter.Handler("Schemes", Controllers.DeleteScheme).Method("DELETE")
 	Subscribe.MessageEmmiter.Handler("Schemes", Controllers.GetSchemes).Method("GET")
+	Subscribe.MessageEmmiter.Handler("Schemes", Controllers.EditScheme).Method("PATCH")
 
 	Subscribe.MessageProcessing(&ReportBoxDatabase.ORMs)
 

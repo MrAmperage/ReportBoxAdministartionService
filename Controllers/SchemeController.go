@@ -51,3 +51,15 @@ func GetSchemes(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data any, Error
 	return SchemeORM.GetShemes()
 
 }
+func EditScheme(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data any, Error error) {
+	var EditScheme ORM.Scheme
+	json.Unmarshal(Message.Body, &EditScheme)
+	ORMElement, Error := ORMs.FindByName("SchemeORM")
+	if Error != nil {
+
+		return
+	}
+	SchemeORM := ORMElement.(*ORM.SchemeORM)
+	return "Схема изменена", SchemeORM.EditScheme(EditScheme).Error
+
+}

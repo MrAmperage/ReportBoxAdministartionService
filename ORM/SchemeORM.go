@@ -30,3 +30,7 @@ func (SchemeORM *SchemeORM) DeleteScheme(SchemeId uuid.UUID) (SQLResult *gorm.DB
 func (SchemeORM *SchemeORM) GetShemes() (Schemes []Scheme, Error error) {
 	return Schemes, SchemeORM.ConnectionLink.Find(&Schemes).Error
 }
+func (SchemeORM *SchemeORM) EditScheme(NewScheme Scheme) (SQLResult *gorm.DB) {
+
+	return SchemeORM.ConnectionLink.Updates(&NewScheme)
+}
