@@ -48,7 +48,17 @@ func GetSchemes(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data any, Error
 		return
 	}
 	SchemeORM := ORMElement.(*ORM.SchemeORM)
-	return SchemeORM.GetShemes()
+
+	if len(Message.Body) != 0 {
+		SchemeId, Error := uuid.FromString(string(Message.Body))
+		if Error != nil {
+			return nil, Error
+		}
+		return SchemeORM.GetScheme(SchemeId)
+
+	} else {
+		return SchemeORM.GetShemes()
+	}
 
 }
 func EditScheme(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data any, Error error) {
