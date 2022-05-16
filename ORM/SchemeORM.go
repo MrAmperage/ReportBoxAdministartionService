@@ -26,3 +26,7 @@ func (SchemeORM *SchemeORM) DeleteScheme(SchemeId uuid.UUID) (SQLResult *gorm.DB
 
 	return SchemeORM.ConnectionLink.Delete(&Scheme{Id: SchemeId})
 }
+
+func (SchemeORM *SchemeORM) GetShemes() (Schemes []Scheme, Error error) {
+	return Schemes, SchemeORM.ConnectionLink.Find(&Schemes).Error
+}

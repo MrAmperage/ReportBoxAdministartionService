@@ -40,3 +40,14 @@ func DeleteScheme(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data any, Err
 
 	return "Схема удалена", SchemeORM.DeleteScheme(SchemeId).Error
 }
+
+func GetSchemes(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data any, Error error) {
+	ORMElement, Error := ORMs.FindByName("SchemeORM")
+	if Error != nil {
+
+		return
+	}
+	SchemeORM := ORMElement.(*ORM.SchemeORM)
+	return SchemeORM.GetShemes()
+
+}

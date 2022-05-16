@@ -46,12 +46,15 @@ func main() {
 	if Error != nil {
 		fmt.Println(Error)
 	}
+	//Пользователи
 	Subscribe.MessageEmmiter.Handler("Users", Controllers.GetUsers).Method("GET")
 	Subscribe.MessageEmmiter.Handler("Users", Controllers.AddUser).Method("POST")
 	Subscribe.MessageEmmiter.Handler("Users", Controllers.DeleteUser).Method("DELETE")
 	Subscribe.MessageEmmiter.Handler("Users", Controllers.EditUser).Method("PATCH")
+	//Схемы
 	Subscribe.MessageEmmiter.Handler("Schemes", Controllers.AddScheme).Method("POST")
 	Subscribe.MessageEmmiter.Handler("Schemes", Controllers.DeleteScheme).Method("DELETE")
+	Subscribe.MessageEmmiter.Handler("Schemes", Controllers.GetSchemes).Method("GET")
 
 	Subscribe.MessageProcessing(&ReportBoxDatabase.ORMs)
 
