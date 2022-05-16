@@ -53,5 +53,10 @@ func GetUsers(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data any, Error e
 		return
 	}
 	UserORM := ORMElement.(*ORM.UserORM)
-	return UserORM.GetUsers()
+	if len(Message.Body) != 0 {
+		return UserORM.GetUser(string(Message.Body))
+	} else {
+		return UserORM.GetUsers()
+	}
+
 }

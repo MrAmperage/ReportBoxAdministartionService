@@ -35,3 +35,8 @@ func (UserORM *UserORM) GetUsers() (Users []User, Error error) {
 
 	return Users, UserORM.ConnectionLink.Find(&Users).Error
 }
+
+func (UserORM *UserORM) GetUser(Username string) (User User, Error error) {
+	User.Username = Username
+	return User, UserORM.ConnectionLink.Take(&User).Error
+}
