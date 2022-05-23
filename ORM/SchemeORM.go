@@ -34,7 +34,12 @@ func (SchemeORM *SchemeORM) EditScheme(NewScheme Scheme) (SQLResult *gorm.DB) {
 
 	return SchemeORM.ConnectionLink.Updates(&NewScheme)
 }
-func (SchemeORM *SchemeORM) GetScheme(SchemeId uuid.UUID) (Scheme Scheme, Error error) {
+func (SchemeORM *SchemeORM) GetSchemeByID(SchemeId uuid.UUID) (Scheme Scheme, Error error) {
 	Scheme.Id = SchemeId
 	return Scheme, SchemeORM.ConnectionLink.Take(&Scheme).Error
+}
+
+func (SchemeORM *SchemeORM) GetSchemeByName(SchemeName string) (FindScheme Scheme, Error error) {
+
+	return FindScheme, SchemeORM.ConnectionLink.Where(&Scheme{Caption: SchemeName}).Find(&FindScheme).Error
 }
