@@ -8,17 +8,17 @@ import (
 
 func Configuration(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data any, Error error) {
 
-	ORMElement, Error := ORMs.FindByName("SchemeORM")
+	ORMElement, Error := ORMs.FindByName("TopMenuORM")
 	if Error != nil {
 
 		return
 	}
-	SchemeORM := ORMElement.(*ORM.SchemeORM)
+	TopMenuORM := ORMElement.(*ORM.TopMenuORM)
 	switch string(Message.Body) {
 	case "GetApplicationMenu":
 
-		ConfigScheme, Error := SchemeORM.GetSchemeByName("ApplicationMenu")
-		return ConfigScheme.Scheme, Error
+		TopMenu, Error := TopMenuORM.GetTopMenu()
+		return TopMenu, Error
 
 	}
 	return
