@@ -16,6 +16,19 @@ type TopMenuORM struct {
 }
 
 func (TopMenuORM *TopMenuORM) GetTopMenu() (TopMenuElements []TopMenu, Error error) {
+	Error = TopMenuORM.ConnectionLink.Preload("Items").Find(&TopMenuElements).Error
+	if Error != nil {
 
-	return TopMenuElements, TopMenuORM.ConnectionLink.Preload("Items").Find(&TopMenuElements).Error
+		return TopMenuElements, Error
+	}
+
+	for Index, _ := range TopMenuElements {
+		Error = TopMenuORM.ConnectionLink.Preload("Scheme").Find(&TopMenuElements[Index].Items).Error
+		if Error != nil {
+
+			return TopMenuElements, Error
+		}
+	}
+
+	return TopMenuElements, Error
 }
