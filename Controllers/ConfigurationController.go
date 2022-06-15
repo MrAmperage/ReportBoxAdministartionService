@@ -6,19 +6,18 @@ import (
 	"github.com/streadway/amqp"
 )
 
-func Configuration(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data any, Error error) {
+func Configuration(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{}, Error error) {
 
-	ORMElement, Error := ORMs.FindByName("TopMenuORM")
+	ORMElement, Error := ORMs.FindByName("SchemeORM")
 	if Error != nil {
 
 		return
 	}
-	TopMenuORM := ORMElement.(*ORM.TopMenuORM)
+	SchemeORM := ORMElement.(*ORM.SchemeORM)
 	switch string(Message.Body) {
 	case "GetApplicationMenu":
 
-		TopMenu, Error := TopMenuORM.GetTopMenu()
-		return TopMenu, Error
+		return SchemeORM.GetSchemeByName("ApplicationMenu")
 
 	}
 	return
