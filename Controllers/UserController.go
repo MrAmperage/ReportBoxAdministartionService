@@ -8,7 +8,7 @@ import (
 	"github.com/streadway/amqp"
 )
 
-func AddUser(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data any, Error error) {
+func AddUser(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{}, Error error) {
 	var NewUser ORM.User
 	json.Unmarshal(Message.Body, &NewUser)
 	ORMElement, Error := ORMs.FindByName("UserORM")
@@ -20,7 +20,7 @@ func AddUser(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data any, Error er
 	return "Пользователь добавлен", UserORM.AddUser(NewUser).Error
 }
 
-func DeleteUser(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data any, Error error) {
+func DeleteUser(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{}, Error error) {
 
 	Username := string(Message.Body)
 	ORMElement, Error := ORMs.FindByName("UserORM")
@@ -33,7 +33,7 @@ func DeleteUser(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data any, Error
 	return "Пользователь удален", UserORM.DeleteUser(Username).Error
 }
 
-func EditUser(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data any, Error error) {
+func EditUser(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{}, Error error) {
 	var EditUser ORM.User
 	json.Unmarshal(Message.Body, &EditUser)
 	ORMElement, Error := ORMs.FindByName("UserORM")
@@ -46,7 +46,7 @@ func EditUser(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data any, Error e
 
 }
 
-func GetUsers(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data any, Error error) {
+func GetUsers(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{}, Error error) {
 	ORMElement, Error := ORMs.FindByName("UserORM")
 	if Error != nil {
 

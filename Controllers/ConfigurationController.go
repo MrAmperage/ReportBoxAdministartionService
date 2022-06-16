@@ -6,7 +6,7 @@ import (
 	"github.com/streadway/amqp"
 )
 
-func Configuration(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data any, Error error) {
+func Configuration(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{}, Error error) {
 
 	ORMElement, Error := ORMs.FindByName("SchemeORM")
 	if Error != nil {

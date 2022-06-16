@@ -9,7 +9,7 @@ import (
 	"github.com/streadway/amqp"
 )
 
-func AddScheme(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data any, Error error) {
+func AddScheme(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{}, Error error) {
 	var NewScheme ORM.Scheme
 
 	Error = json.Unmarshal(Message.Body, &NewScheme)
@@ -25,7 +25,7 @@ func AddScheme(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data any, Error 
 
 	return "Схема добавлена", SchemeORM.AddScheme(NewScheme).Error
 }
-func DeleteScheme(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data any, Error error) {
+func DeleteScheme(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{}, Error error) {
 	SchemeId, Error := uuid.FromString(string(Message.Body))
 	if Error != nil {
 		return
@@ -41,7 +41,7 @@ func DeleteScheme(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data any, Err
 	return "Схема удалена", SchemeORM.DeleteScheme(SchemeId).Error
 }
 
-func GetSchemes(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data any, Error error) {
+func GetSchemes(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{}, Error error) {
 	ORMElement, Error := ORMs.FindByName("SchemeORM")
 	if Error != nil {
 
@@ -61,7 +61,7 @@ func GetSchemes(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data any, Error
 	}
 
 }
-func EditScheme(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data any, Error error) {
+func EditScheme(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{}, Error error) {
 	var EditScheme ORM.Scheme
 	json.Unmarshal(Message.Body, &EditScheme)
 	ORMElement, Error := ORMs.FindByName("SchemeORM")
