@@ -8,10 +8,9 @@ import (
 )
 
 type Scheme struct {
-	Id        uuid.UUID    `gorm:"primary_key;type:uuid;default:uuid_generate_v4()"`
-	Caption   string       `gorm:"not null;caption"`
-	Scheme    pgtype.JSONB `gorm:"not null;scheme"`
-	SubmenuId uuid.UUID
+	Id      uuid.UUID    `gorm:"primary_key;type:uuid;default:uuid_generate_v4()"`
+	Caption string       `gorm:"not null;caption"`
+	Scheme  pgtype.JSONB `gorm:"not null;scheme"`
 }
 
 type SchemeORM struct {
