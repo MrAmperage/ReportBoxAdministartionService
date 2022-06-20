@@ -22,10 +22,13 @@ func main() {
 
 	UserORM := &ORM.UserORM{}
 	UserORM.SetName("UserORM")
+	UnitTypesORM := &ORM.UnitTypesORM{}
+	UnitTypesORM.SetName("UnitTypesORM")
 	ReportBoxDatabase, Error := AuthenticationService.WebCore.PostgreSQL.FindByName("ReportBoxDatabase")
 	if Error != nil {
 		fmt.Println(Error)
 	}
+	ReportBoxDatabase.ORMs.Add(UnitTypesORM)
 	ReportBoxDatabase.ORMs.Add(UserORM)
 	ReportBoxDatabase.ORMs.Add(SchemeORM)
 	ErrorDatabaseConnection := AuthenticationService.WebCore.PostgreSQL.StartDatabaseConnections()
@@ -46,6 +49,8 @@ func main() {
 	if Error != nil {
 		fmt.Println(Error)
 	}
+	//Типы агрегатов
+	Subscribe.MessageEmmiter.Handler("UnitTypes", Controllers.GetUnitTypes).Method("GET")
 	//Пользователи
 	Subscribe.MessageEmmiter.Handler("Users", Controllers.GetUsers).Method("GET")
 	Subscribe.MessageEmmiter.Handler("Users", Controllers.AddUser).Method("POST")
