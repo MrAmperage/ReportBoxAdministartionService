@@ -59,3 +59,20 @@ func AddUnitType(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface
 	return "Тип агрегата добавлен", UnitTypesORM.AddUnitType(NewUnitType)
 
 }
+
+func EditUnitType(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{}, Error error) {
+	ORMElement, Error := ORMs.FindByName("UnitTypesORM")
+	if Error != nil {
+
+		return
+	}
+	UnitTypesORM := ORMElement.(*ORM.UnitTypesORM)
+	var NewUnitType ORM.UnitType
+	Error = json.Unmarshal(Message.Body, &NewUnitType)
+	if Error != nil {
+
+		return
+	}
+	return "Тип агрегата обновлен", UnitTypesORM.EditUnitType(NewUnitType)
+
+}

@@ -24,3 +24,7 @@ func (UnitTypesORM *UnitTypesORM) DeleteUnitType(UnitTypeId uuid.UUID) (Error er
 func (UnitTypesORM *UnitTypesORM) AddUnitType(NewUnitType UnitType) (Error error) {
 	return UnitTypesORM.ConnectionLink.Create(&NewUnitType).Error
 }
+
+func (UnitTypesORM *UnitTypesORM) EditUnitType(NewUnitType UnitType) (Error error) {
+	return UnitTypesORM.ConnectionLink.Updates(&NewUnitType).Error
+}

@@ -53,6 +53,7 @@ func main() {
 	Subscribe.MessageEmmiter.Handler("UnitTypes", Controllers.GetUnitTypes).Method("GET")
 	Subscribe.MessageEmmiter.Handler("UnitTypes", Controllers.DeleteUnitType).Method("DELETE")
 	Subscribe.MessageEmmiter.Handler("UnitTypes", Controllers.AddUnitType).Method("POST")
+	Subscribe.MessageEmmiter.Handler("UnitTypes", Controllers.EditUnitType).Method("PATCH")
 	//Пользователи
 	Subscribe.MessageEmmiter.Handler("Users", Controllers.GetUsers).Method("GET")
 	Subscribe.MessageEmmiter.Handler("Users", Controllers.AddUser).Method("POST")
