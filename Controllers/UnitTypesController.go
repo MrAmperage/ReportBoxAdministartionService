@@ -18,11 +18,12 @@ func GetUnitTypes(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interfac
 	UnitTypesORM := ORMElement.(*ORM.UnitTypesORM)
 
 	if len(Message.Body) != 0 {
-		_, Error := uuid.FromString(string(Message.Body))
+		UnitTypeUUID, Error := uuid.FromString(string(Message.Body))
 		if Error != nil {
 			return nil, Error
 		}
-		return UnitTypesORM.GetUnitTypes()
+
+		return UnitTypesORM.GetUnitType(UnitTypeUUID)
 
 	} else {
 		return UnitTypesORM.GetUnitTypes()
