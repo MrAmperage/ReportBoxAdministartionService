@@ -1,6 +1,8 @@
 package Controllers
 
 import (
+	"encoding/json"
+
 	"github.com/MrAmperage/GoWebStruct/WebCore/Modules/ORMModule"
 	"github.com/MrAmperage/ReportBoxAdministartionService/ORM"
 	"github.com/gofrs/uuid"
@@ -39,4 +41,21 @@ func DeleteUnitType(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interf
 		return
 	}
 	return "Тип агрегата удален", UnitTypesORM.DeleteUnitType(UnitTypeUUID)
+}
+
+func AddUnitType(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{}, Error error) {
+	ORMElement, Error := ORMs.FindByName("UnitTypesORM")
+	if Error != nil {
+
+		return
+	}
+	UnitTypesORM := ORMElement.(*ORM.UnitTypesORM)
+	var NewUnitType ORM.UnitType
+	Error = json.Unmarshal(Message.Body, &NewUnitType)
+	if Error != nil {
+
+		return
+	}
+	return "Тип агрегата добавлен", UnitTypesORM.AddUnitType(NewUnitType)
+
 }

@@ -20,3 +20,7 @@ func (UnitTypesORM *UnitTypesORM) GetUnitTypes() (UnitTypes []UnitType, Error er
 func (UnitTypesORM *UnitTypesORM) DeleteUnitType(UnitTypeId uuid.UUID) (Error error) {
 	return UnitTypesORM.ConnectionLink.Delete(&UnitType{Id: UnitTypeId}).Error
 }
+
+func (UnitTypesORM *UnitTypesORM) AddUnitType(NewUnitType UnitType) (Error error) {
+	return UnitTypesORM.ConnectionLink.Create(&NewUnitType).Error
+}
