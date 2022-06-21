@@ -51,6 +51,7 @@ func main() {
 	}
 	//Типы агрегатов
 	Subscribe.MessageEmmiter.Handler("UnitTypes", Controllers.GetUnitTypes).Method("GET")
+	Subscribe.MessageEmmiter.Handler("UnitTypes", Controllers.DeleteUnitType).Method("DELETE")
 	//Пользователи
 	Subscribe.MessageEmmiter.Handler("Users", Controllers.GetUsers).Method("GET")
 	Subscribe.MessageEmmiter.Handler("Users", Controllers.AddUser).Method("POST")

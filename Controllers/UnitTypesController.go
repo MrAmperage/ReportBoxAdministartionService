@@ -27,3 +27,16 @@ func GetUnitTypes(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interfac
 	}
 
 }
+func DeleteUnitType(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{}, Error error) {
+	ORMElement, Error := ORMs.FindByName("UnitTypesORM")
+	if Error != nil {
+
+		return
+	}
+	UnitTypesORM := ORMElement.(*ORM.UnitTypesORM)
+	UnitTypeUUID, Error := uuid.FromString(string(Message.Body))
+	if Error != nil {
+		return
+	}
+	return "Тип агрегата удален", UnitTypesORM.DeleteUnitType(UnitTypeUUID)
+}
