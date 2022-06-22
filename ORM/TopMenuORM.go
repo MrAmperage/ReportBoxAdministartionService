@@ -15,11 +15,14 @@ type TopMenuORM struct {
 
 func (TopMenuORM *TopMenuORM) GetTopMenus() (TopMenus []TopMenu, Error error) {
 	TopMenuORM.ConnectionLink.Find(&TopMenus)
-	for Index, _ := range TopMenus {
+	for TopMenuIndex, _ := range TopMenus {
 
-		Error = TopMenuORM.ConnectionLink.Debug().Model(TopMenus[Index]).Association("LeftMenu").Find(&TopMenus[Index].LeftMenu)
+		Error = TopMenuORM.ConnectionLink.Model(TopMenus[TopMenuIndex]).Association("LeftMenu").Find(&TopMenus[TopMenuIndex].LeftMenu)
 		if Error != nil {
 			return
+		}
+		for LeftMenuIndex, _ := range TopMenus[TopMenuIndex].LeftMenu {
+			Error = TopMenuORM.ConnectionLink.Model(TopMenus[TopMenuIndex].LeftMenu[LeftMenuIndex]).Association("Scheme").Find(&TopMenus[TopMenuIndex].LeftMenu[LeftMenuIndex].Scheme)
 		}
 	}
 	return TopMenus, Error
