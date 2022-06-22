@@ -24,10 +24,14 @@ func main() {
 	UserORM.SetName("UserORM")
 	UnitTypesORM := &ORM.UnitTypesORM{}
 	UnitTypesORM.SetName("UnitTypesORM")
+	TopMenuORM := &ORM.TopMenuORM{}
+	TopMenuORM.SetName("TopMenuORM")
+
 	ReportBoxDatabase, Error := AuthenticationService.WebCore.PostgreSQL.FindByName("ReportBoxDatabase")
 	if Error != nil {
 		fmt.Println(Error)
 	}
+	ReportBoxDatabase.ORMs.Add(TopMenuORM)
 	ReportBoxDatabase.ORMs.Add(UnitTypesORM)
 	ReportBoxDatabase.ORMs.Add(UserORM)
 	ReportBoxDatabase.ORMs.Add(SchemeORM)
