@@ -57,7 +57,7 @@ func AddUnitType(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface
 
 		return
 	}
-	return "Тип агрегата добавлен", UnitTypesORM.AddUnitType(NewUnitType)
+	return UnitTypesORM.AddUnitType(NewUnitType)
 
 }
 
