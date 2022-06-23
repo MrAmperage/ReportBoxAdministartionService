@@ -28,6 +28,6 @@ func (UnitTypesORM *UnitTypesORM) AddUnitType(NewUnitType UnitType) (UnitType, e
 	return NewUnitType, UnitTypesORM.ConnectionLink.Create(&NewUnitType).Error
 }
 
-func (UnitTypesORM *UnitTypesORM) EditUnitType(NewUnitType UnitType) (Error error) {
-	return UnitTypesORM.ConnectionLink.Updates(&NewUnitType).Error
+func (UnitTypesORM *UnitTypesORM) EditUnitType(NewUnitType UnitType) (UnitType, error) {
+	return NewUnitType, UnitTypesORM.ConnectionLink.Updates(&NewUnitType).Error
 }

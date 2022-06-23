@@ -74,6 +74,6 @@ func EditUnitType(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interfac
 
 		return
 	}
-	return "Тип агрегата обновлен", UnitTypesORM.EditUnitType(NewUnitType)
+	return UnitTypesORM.EditUnitType(NewUnitType)
 
 }
