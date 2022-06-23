@@ -21,9 +21,7 @@ func (TopMenuORM *TopMenuORM) GetTopMenus() (TopMenus []TopMenu, Error error) {
 		if Error != nil {
 			return
 		}
-		for LeftMenuIndex, _ := range TopMenus[TopMenuIndex].LeftMenu {
-			Error = TopMenuORM.ConnectionLink.Model(TopMenus[TopMenuIndex].LeftMenu[LeftMenuIndex]).Association("Scheme").Find(&TopMenus[TopMenuIndex].LeftMenu[LeftMenuIndex].Scheme)
-		}
+
 	}
 	return TopMenus, Error
 }
