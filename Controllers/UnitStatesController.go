@@ -61,3 +61,20 @@ func EditUnitState(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interfa
 	return UnitStatesORM.EditUnitType(NewUnitState)
 
 }
+
+func AddUnitState(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{}, Error error) {
+	ORMElement, Error := ORMs.FindByName("UnitStatesORM")
+	if Error != nil {
+
+		return
+	}
+	UnitStatesORM := ORMElement.(*ORM.UnitStatesORM)
+	var NewUnitState ORM.UnitState
+	Error = json.Unmarshal(Message.Body, &NewUnitState)
+	if Error != nil {
+
+		return
+	}
+	return UnitStatesORM.AddUnitState(NewUnitState)
+
+}

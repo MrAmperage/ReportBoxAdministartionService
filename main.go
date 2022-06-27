@@ -59,6 +59,7 @@ func main() {
 	Subscribe.MessageEmmiter.Handler("UnitStates", Controllers.GetUnitStates).Method("GET")
 	Subscribe.MessageEmmiter.Handler("UnitStates", Controllers.DeleteUnitState).Method("DELETE")
 	Subscribe.MessageEmmiter.Handler("UnitStates", Controllers.EditUnitState).Method("PATCH")
+	Subscribe.MessageEmmiter.Handler("UnitStates", Controllers.AddUnitState).Method("POST")
 	//Типы агрегатов
 	Subscribe.MessageEmmiter.Handler("UnitTypes", Controllers.GetUnitTypes).Method("GET")
 	Subscribe.MessageEmmiter.Handler("UnitTypes", Controllers.DeleteUnitType).Method("DELETE")
