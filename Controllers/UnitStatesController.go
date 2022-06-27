@@ -28,3 +28,17 @@ func GetUnitStates(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interfa
 	}
 
 }
+
+func DeleteUnitState(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{}, Error error) {
+	ORMElement, Error := ORMs.FindByName("UnitStatesORM")
+	if Error != nil {
+
+		return
+	}
+	UnitStatesORM := ORMElement.(*ORM.UnitStatesORM)
+	UnitTypeUUID, Error := uuid.FromString(string(Message.Body))
+	if Error != nil {
+		return
+	}
+	return "Состояние агрегата удалено", UnitStatesORM.DeleteUnitState(UnitTypeUUID)
+}
