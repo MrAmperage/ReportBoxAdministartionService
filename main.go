@@ -19,7 +19,8 @@ func main() {
 	}
 	SchemeORM := &ORM.SchemeORM{}
 	SchemeORM.SetName("SchemeORM")
-
+	UnitStatesORM := &ORM.UnitStatesORM{}
+	UnitStatesORM.SetName("UnitStatesORM")
 	UserORM := &ORM.UserORM{}
 	UserORM.SetName("UserORM")
 	UnitTypesORM := &ORM.UnitTypesORM{}
@@ -35,6 +36,7 @@ func main() {
 	ReportBoxDatabase.ORMs.Add(UnitTypesORM)
 	ReportBoxDatabase.ORMs.Add(UserORM)
 	ReportBoxDatabase.ORMs.Add(SchemeORM)
+	ReportBoxDatabase.ORMs.Add(UnitStatesORM)
 	ErrorDatabaseConnection := AuthenticationService.WebCore.PostgreSQL.StartDatabaseConnections()
 	if ErrorDatabaseConnection != nil {
 
@@ -53,6 +55,8 @@ func main() {
 	if Error != nil {
 		fmt.Println(Error)
 	}
+	//Состояние агрегатов
+	Subscribe.MessageEmmiter.Handler("UnitStates", Controllers.GetUnitStates).Method("GET")
 	//Типы агрегатов
 	Subscribe.MessageEmmiter.Handler("UnitTypes", Controllers.GetUnitTypes).Method("GET")
 	Subscribe.MessageEmmiter.Handler("UnitTypes", Controllers.DeleteUnitType).Method("DELETE")
