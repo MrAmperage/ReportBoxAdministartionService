@@ -25,3 +25,7 @@ func (UnitStatesORM *UnitStatesORM) GetUnitState(UUID uuid.UUID) (UnitState Unit
 func (UnitStatesORM *UnitStatesORM) DeleteUnitState(UnitStateId uuid.UUID) (Error error) {
 	return UnitStatesORM.ConnectionLink.Delete(&UnitState{Id: UnitStateId}).Error
 }
+
+func (UnitStatesORM *UnitStatesORM) EditUnitType(NewUnitState UnitState) (UnitState, error) {
+	return NewUnitState, UnitStatesORM.ConnectionLink.Updates(&NewUnitState).Error
+}
