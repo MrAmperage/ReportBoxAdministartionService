@@ -21,3 +21,7 @@ func (TransportTypesORM *TransportTypesORM) GetTransportType(UUID uuid.UUID) (Tr
 	TransportType.Id = UUID
 	return TransportType, TransportTypesORM.ConnectionLink.Take(&TransportType).Error
 }
+
+func (TransportTypesORM *TransportTypesORM) EditTransportType(NewTransportType TransportType) (TransportType, error) {
+	return NewTransportType, TransportTypesORM.ConnectionLink.Updates(&NewTransportType).Error
+}
