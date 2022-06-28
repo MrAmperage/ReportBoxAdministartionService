@@ -61,3 +61,21 @@ func EditTransportType(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data int
 	return TransportTypesORM.EditTransportType(NewTransportType)
 
 }
+
+func AddTransportType(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{}, Error error) {
+	ORMElement, Error := ORMs.FindByName("TransportTypesORM")
+	if Error != nil {
+
+		return
+	}
+	TransportTypesORM := ORMElement.(*ORM.TransportTypesORM)
+	var NewTransportType ORM.TransportType
+	Error = json.Unmarshal(Message.Body, &NewTransportType)
+	if Error != nil {
+
+		return
+	}
+
+	return TransportTypesORM.AddTransportType(NewTransportType)
+
+}
