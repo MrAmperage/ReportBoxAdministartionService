@@ -31,6 +31,20 @@ func GetTransportTypes(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data int
 
 }
 
+func DeleteTransportType(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{}, Error error) {
+	ORMElement, Error := ORMs.FindByName("TransportTypesORM")
+	if Error != nil {
+
+		return
+	}
+	TransportTypesORM := ORMElement.(*ORM.TransportTypesORM)
+	TransportTypeUUID, Error := uuid.FromString(string(Message.Body))
+	if Error != nil {
+		return
+	}
+	return "Тип транспорта удален", TransportTypesORM.DeleteTransportType(TransportTypeUUID)
+}
+
 func EditTransportType(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{}, Error error) {
 	ORMElement, Error := ORMs.FindByName("TransportTypesORM")
 	if Error != nil {

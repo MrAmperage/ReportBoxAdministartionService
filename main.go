@@ -61,6 +61,7 @@ func main() {
 	//Типы транспорта
 	Subscribe.MessageEmmiter.Handler("TransportTypes", Controllers.GetTransportTypes).Method("GET")
 	Subscribe.MessageEmmiter.Handler("TransportTypes", Controllers.EditTransportType).Method("PATCH")
+	Subscribe.MessageEmmiter.Handler("TransportTypes", Controllers.DeleteTransportType).Method("DELETE")
 	//Состояние агрегатов
 	Subscribe.MessageEmmiter.Handler("UnitStates", Controllers.GetUnitStates).Method("GET")
 	Subscribe.MessageEmmiter.Handler("UnitStates", Controllers.DeleteUnitState).Method("DELETE")

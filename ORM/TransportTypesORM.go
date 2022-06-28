@@ -25,3 +25,7 @@ func (TransportTypesORM *TransportTypesORM) GetTransportType(UUID uuid.UUID) (Tr
 func (TransportTypesORM *TransportTypesORM) EditTransportType(NewTransportType TransportType) (TransportType, error) {
 	return NewTransportType, TransportTypesORM.ConnectionLink.Updates(&NewTransportType).Error
 }
+
+func (TransportTypesORM *TransportTypesORM) DeleteTransportType(TransportTypeId uuid.UUID) (Error error) {
+	return TransportTypesORM.ConnectionLink.Delete(&TransportType{Id: TransportTypeId}).Error
+}
