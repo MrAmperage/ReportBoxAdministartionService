@@ -21,3 +21,7 @@ func (ManufacturersORM *ManufacturersORM) GetManufacturer(UUID uuid.UUID) (Manuf
 	Manufacturer.Id = UUID
 	return Manufacturer, ManufacturersORM.ConnectionLink.Take(&Manufacturer).Error
 }
+
+func (ManufacturersORM *ManufacturersORM) DeleteManufacturer(ManufacturerId uuid.UUID) (Error error) {
+	return ManufacturersORM.ConnectionLink.Delete(&Manufacturer{Id: ManufacturerId}).Error
+}

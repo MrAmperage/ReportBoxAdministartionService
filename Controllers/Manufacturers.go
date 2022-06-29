@@ -29,3 +29,17 @@ func GetManufacturers(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data inte
 	}
 
 }
+
+func DeleteManufacturer(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{}, Error error) {
+	ORMElement, Error := ORMs.FindByName("ManufacturersORM")
+	if Error != nil {
+
+		return
+	}
+	ManufacturersORM := ORMElement.(*ORM.ManufacturersORM)
+	ManufacturerUUID, Error := uuid.FromString(string(Message.Body))
+	if Error != nil {
+		return
+	}
+	return "Производитель удален", ManufacturersORM.DeleteManufacturer(ManufacturerUUID)
+}
