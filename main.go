@@ -17,6 +17,8 @@ func main() {
 		fmt.Println(ErrorInitService)
 		os.Exit(0)
 	}
+	ManufacturersORM := &ORM.ManufacturersORM{}
+	ManufacturersORM.SetName("ManufacturersORM")
 	SchemeORM := &ORM.SchemeORM{}
 	SchemeORM.SetName("SchemeORM")
 	UnitStatesORM := &ORM.UnitStatesORM{}
@@ -34,6 +36,7 @@ func main() {
 	if Error != nil {
 		fmt.Println(Error)
 	}
+	ReportBoxDatabase.ORMs.Add(ManufacturersORM)
 	ReportBoxDatabase.ORMs.Add(TransportTypeORM)
 	ReportBoxDatabase.ORMs.Add(TopMenuORM)
 	ReportBoxDatabase.ORMs.Add(UnitTypesORM)
@@ -58,6 +61,8 @@ func main() {
 	if Error != nil {
 		fmt.Println(Error)
 	}
+	//Производители
+	Subscribe.MessageEmmiter.Handler("Manufacturers", Controllers.GetManufacturers).Method("GET")
 	//Типы транспорта
 	Subscribe.MessageEmmiter.Handler("TransportTypes", Controllers.GetTransportTypes).Method("GET")
 	Subscribe.MessageEmmiter.Handler("TransportTypes", Controllers.EditTransportType).Method("PATCH")
