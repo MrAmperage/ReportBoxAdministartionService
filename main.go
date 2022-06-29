@@ -64,6 +64,7 @@ func main() {
 	//Производители
 	Subscribe.MessageEmmiter.Handler("Manufacturers", Controllers.GetManufacturers).Method("GET")
 	Subscribe.MessageEmmiter.Handler("Manufacturers", Controllers.DeleteManufacturer).Method("DELETE")
+	Subscribe.MessageEmmiter.Handler("Manufacturers", Controllers.EditManufacturer).Method("PATCH")
 	//Типы транспорта
 	Subscribe.MessageEmmiter.Handler("TransportTypes", Controllers.GetTransportTypes).Method("GET")
 	Subscribe.MessageEmmiter.Handler("TransportTypes", Controllers.EditTransportType).Method("PATCH")

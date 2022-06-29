@@ -1,6 +1,8 @@
 package Controllers
 
 import (
+	"encoding/json"
+
 	"github.com/MrAmperage/GoWebStruct/WebCore/Modules/ORMModule"
 	"github.com/MrAmperage/ReportBoxAdministartionService/ORM"
 	"github.com/gofrs/uuid"
@@ -42,4 +44,21 @@ func DeleteManufacturer(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data in
 		return
 	}
 	return "Производитель удален", ManufacturersORM.DeleteManufacturer(ManufacturerUUID)
+}
+
+func EditManufacturer(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{}, Error error) {
+	ORMElement, Error := ORMs.FindByName("ManufacturersORM")
+	if Error != nil {
+
+		return
+	}
+	ManufacturersORM := ORMElement.(*ORM.ManufacturersORM)
+	var NewManufacturer ORM.Manufacturer
+	Error = json.Unmarshal(Message.Body, &NewManufacturer)
+	if Error != nil {
+
+		return
+	}
+	return ManufacturersORM.EditManufacturer(NewManufacturer)
+
 }
