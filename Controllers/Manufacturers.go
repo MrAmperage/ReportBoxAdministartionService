@@ -62,3 +62,21 @@ func EditManufacturer(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data inte
 	return ManufacturersORM.EditManufacturer(NewManufacturer)
 
 }
+
+func AddManufacturer(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{}, Error error) {
+	ORMElement, Error := ORMs.FindByName("ManufacturersORM")
+	if Error != nil {
+
+		return
+	}
+	ManufacturersORM := ORMElement.(*ORM.ManufacturersORM)
+	var NewManufacturer ORM.Manufacturer
+	Error = json.Unmarshal(Message.Body, &NewManufacturer)
+	if Error != nil {
+
+		return
+	}
+
+	return ManufacturersORM.AddManufacturer(NewManufacturer)
+
+}

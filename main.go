@@ -62,6 +62,7 @@ func main() {
 		fmt.Println(Error)
 	}
 	//Производители
+	Subscribe.MessageEmmiter.Handler("Manufacturers", Controllers.AddManufacturer).Method("POST")
 	Subscribe.MessageEmmiter.Handler("Manufacturers", Controllers.GetManufacturers).Method("GET")
 	Subscribe.MessageEmmiter.Handler("Manufacturers", Controllers.DeleteManufacturer).Method("DELETE")
 	Subscribe.MessageEmmiter.Handler("Manufacturers", Controllers.EditManufacturer).Method("PATCH")
