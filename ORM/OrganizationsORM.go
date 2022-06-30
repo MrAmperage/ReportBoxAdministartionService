@@ -26,3 +26,7 @@ func (OrganizationsORM *OrganizationsORM) GetOrganization(UUID uuid.UUID) (Organ
 func (OrganizationsORM *OrganizationsORM) DeleteOrganization(OrganizationId uuid.UUID) (Error error) {
 	return OrganizationsORM.ConnectionLink.Delete(&Organization{Id: OrganizationId}).Error
 }
+
+func (OrganizationsORM *OrganizationsORM) EditOrganization(NewOrganization Organization) (Organization, error) {
+	return NewOrganization, OrganizationsORM.ConnectionLink.Updates(&NewOrganization).Error
+}

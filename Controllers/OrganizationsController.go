@@ -1,6 +1,8 @@
 package Controllers
 
 import (
+	"encoding/json"
+
 	"github.com/MrAmperage/GoWebStruct/WebCore/Modules/ORMModule"
 	"github.com/MrAmperage/ReportBoxAdministartionService/ORM"
 	"github.com/gofrs/uuid"
@@ -41,4 +43,21 @@ func DeleteOrganization(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data in
 		return
 	}
 	return "Организация удалена", OrganizationsORM.DeleteOrganization(OrganizationUUID)
+}
+
+func EditOrganization(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{}, Error error) {
+	ORMElement, Error := ORMs.FindByName("OrganizationsORM")
+	if Error != nil {
+
+		return
+	}
+	OrganizationsORM := ORMElement.(*ORM.OrganizationsORM)
+	var NewOrganization ORM.Organization
+	Error = json.Unmarshal(Message.Body, &NewOrganization)
+	if Error != nil {
+
+		return
+	}
+	return OrganizationsORM.EditOrganization(NewOrganization)
+
 }
