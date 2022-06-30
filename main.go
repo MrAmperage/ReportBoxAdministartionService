@@ -17,6 +17,8 @@ func main() {
 		fmt.Println(ErrorInitService)
 		os.Exit(0)
 	}
+	OrganizationsORM := &ORM.OrganizationsORM{}
+	OrganizationsORM.SetName("OrganizationsORM")
 	ManufacturersORM := &ORM.ManufacturersORM{}
 	ManufacturersORM.SetName("ManufacturersORM")
 	SchemeORM := &ORM.SchemeORM{}
@@ -38,6 +40,7 @@ func main() {
 	}
 	ReportBoxDatabase.ORMs.Add(ManufacturersORM)
 	ReportBoxDatabase.ORMs.Add(TransportTypeORM)
+	ReportBoxDatabase.ORMs.Add(OrganizationsORM)
 	ReportBoxDatabase.ORMs.Add(TopMenuORM)
 	ReportBoxDatabase.ORMs.Add(UnitTypesORM)
 	ReportBoxDatabase.ORMs.Add(UserORM)
@@ -91,6 +94,8 @@ func main() {
 	Subscribe.MessageEmmiter.Handler("Schemes", Controllers.DeleteScheme).Method("DELETE")
 	Subscribe.MessageEmmiter.Handler("Schemes", Controllers.GetSchemes).Method("GET")
 	Subscribe.MessageEmmiter.Handler("Schemes", Controllers.EditScheme).Method("PATCH")
+	//Организации
+	Subscribe.MessageEmmiter.Handler("Organizations", Controllers.GetOrganizations).Method("GET")
 	//Конфигурация
 	Subscribe.MessageEmmiter.Handler("Configurations", Controllers.Configuration).Method("GET")
 
