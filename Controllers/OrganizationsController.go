@@ -28,3 +28,17 @@ func GetOrganizations(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data inte
 	}
 
 }
+
+func DeleteOrganization(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{}, Error error) {
+	ORMElement, Error := ORMs.FindByName("OrganizationsORM")
+	if Error != nil {
+
+		return
+	}
+	OrganizationsORM := ORMElement.(*ORM.OrganizationsORM)
+	OrganizationUUID, Error := uuid.FromString(string(Message.Body))
+	if Error != nil {
+		return
+	}
+	return "Организация удалена", OrganizationsORM.DeleteOrganization(OrganizationUUID)
+}

@@ -96,6 +96,7 @@ func main() {
 	Subscribe.MessageEmmiter.Handler("Schemes", Controllers.EditScheme).Method("PATCH")
 	//Организации
 	Subscribe.MessageEmmiter.Handler("Organizations", Controllers.GetOrganizations).Method("GET")
+	Subscribe.MessageEmmiter.Handler("Organizations", Controllers.DeleteOrganization).Method("DELETE")
 	//Конфигурация
 	Subscribe.MessageEmmiter.Handler("Configurations", Controllers.Configuration).Method("GET")
 
