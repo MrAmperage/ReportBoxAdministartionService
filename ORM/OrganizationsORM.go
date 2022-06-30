@@ -30,3 +30,7 @@ func (OrganizationsORM *OrganizationsORM) DeleteOrganization(OrganizationId uuid
 func (OrganizationsORM *OrganizationsORM) EditOrganization(NewOrganization Organization) (Organization, error) {
 	return NewOrganization, OrganizationsORM.ConnectionLink.Updates(&NewOrganization).Error
 }
+
+func (OrganizationsORM *OrganizationsORM) AddOrganization(NewOrganization Organization) (Organization, error) {
+	return NewOrganization, OrganizationsORM.ConnectionLink.Create(&NewOrganization).Error
+}

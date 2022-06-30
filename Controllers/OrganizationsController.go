@@ -61,3 +61,21 @@ func EditOrganization(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data inte
 	return OrganizationsORM.EditOrganization(NewOrganization)
 
 }
+
+func AddOrganization(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{}, Error error) {
+	ORMElement, Error := ORMs.FindByName("OrganizationsORM")
+	if Error != nil {
+
+		return
+	}
+	OrganizationsORM := ORMElement.(*ORM.OrganizationsORM)
+	var NewOrganization ORM.Organization
+	Error = json.Unmarshal(Message.Body, &NewOrganization)
+	if Error != nil {
+
+		return
+	}
+
+	return OrganizationsORM.AddOrganization(NewOrganization)
+
+}
