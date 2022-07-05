@@ -54,7 +54,7 @@ func GetSchemes(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{
 		if Error != nil {
 			return nil, Error
 		}
-		return SchemeORM.GetSchemeByID(SchemeId)
+		return SchemeORM.GetScheme(SchemeId)
 
 	} else {
 		return SchemeORM.GetShemes()
