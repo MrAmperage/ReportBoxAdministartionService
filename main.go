@@ -92,11 +92,6 @@ func main() {
 	Subscribe.MessageEmmiter.Handler("Users", Controllers.AddUser).Method("POST")
 	Subscribe.MessageEmmiter.Handler("Users", Controllers.DeleteUser).Method("DELETE")
 	Subscribe.MessageEmmiter.Handler("Users", Controllers.EditUser).Method("PATCH")
-	//Схемы
-	Subscribe.MessageEmmiter.Handler("Schemes", Controllers.AddScheme).Method("POST")
-	Subscribe.MessageEmmiter.Handler("Schemes", Controllers.DeleteScheme).Method("DELETE")
-	Subscribe.MessageEmmiter.Handler("Schemes", Controllers.GetSchemes).Method("GET")
-	Subscribe.MessageEmmiter.Handler("Schemes", Controllers.EditScheme).Method("PATCH")
 	//Организации
 	Subscribe.MessageEmmiter.Handler("Organizations", Controllers.GetOrganizations).Method("GET")
 	Subscribe.MessageEmmiter.Handler("Organizations", Controllers.DeleteOrganization).Method("DELETE")
@@ -106,6 +101,7 @@ func main() {
 	Subscribe.MessageEmmiter.Handler("Configurations", Controllers.Configuration).Method("GET")
 	//Тиы грузов
 	Subscribe.MessageEmmiter.Handler("CargoTypes", Controllers.GetCargoTypes).Method("GET")
+	Subscribe.MessageEmmiter.Handler("CargoTypes", Controllers.DeleteCargoType).Method("DELETE")
 
 	Subscribe.MessageProcessing(&ReportBoxDatabase.ORMs)
 

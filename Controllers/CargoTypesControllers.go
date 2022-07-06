@@ -28,3 +28,17 @@ func GetCargoTypes(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interfa
 	}
 
 }
+
+func DeleteCargoType(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{}, Error error) {
+	ORMElement, Error := ORMs.FindByName("CargoTypesORM")
+	if Error != nil {
+
+		return
+	}
+	CargoTypesORM := ORMElement.(*ORM.CargoTypesORM)
+	UnitTypeUUID, Error := uuid.FromString(string(Message.Body))
+	if Error != nil {
+		return
+	}
+	return "Тип груза удален", CargoTypesORM.DeleteCargoType(UnitTypeUUID)
+}

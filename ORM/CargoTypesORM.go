@@ -21,3 +21,6 @@ func (CargoTypesORM *CargoTypesORM) GetCargoType(UUID uuid.UUID) (CargoType Carg
 	CargoType.Id = UUID
 	return CargoType, CargoTypesORM.ConnectionLink.Take(&CargoType).Error
 }
+func (CargoTypesORM *CargoTypesORM) DeleteCargoType(CargoTypeId uuid.UUID) (Error error) {
+	return CargoTypesORM.ConnectionLink.Delete(&CargoType{Id: CargoTypeId}).Error
+}
