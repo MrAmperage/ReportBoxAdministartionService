@@ -102,6 +102,7 @@ func main() {
 	//Тиы грузов
 	Subscribe.MessageEmmiter.Handler("CargoTypes", Controllers.GetCargoTypes).Method("GET")
 	Subscribe.MessageEmmiter.Handler("CargoTypes", Controllers.DeleteCargoType).Method("DELETE")
+	Subscribe.MessageEmmiter.Handler("CargoTypes", Controllers.EditCargoType).Method("PATCH")
 
 	Subscribe.MessageProcessing(&ReportBoxDatabase.ORMs)
 

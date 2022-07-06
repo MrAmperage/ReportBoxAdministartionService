@@ -1,6 +1,8 @@
 package Controllers
 
 import (
+	"encoding/json"
+
 	"github.com/MrAmperage/GoWebStruct/WebCore/Modules/ORMModule"
 	"github.com/MrAmperage/ReportBoxAdministartionService/ORM"
 	"github.com/gofrs/uuid"
@@ -41,4 +43,21 @@ func DeleteCargoType(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data inter
 		return
 	}
 	return "Тип груза удален", CargoTypesORM.DeleteCargoType(UnitTypeUUID)
+}
+
+func EditCargoType(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{}, Error error) {
+	ORMElement, Error := ORMs.FindByName("CargoTypesORM")
+	if Error != nil {
+
+		return
+	}
+	CargoTypesORM := ORMElement.(*ORM.CargoTypesORM)
+	var NewCargoType ORM.CargoType
+	Error = json.Unmarshal(Message.Body, &NewCargoType)
+	if Error != nil {
+
+		return
+	}
+	return CargoTypesORM.EditCargoType(NewCargoType)
+
 }
