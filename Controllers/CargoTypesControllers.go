@@ -61,3 +61,21 @@ func EditCargoType(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interfa
 	return CargoTypesORM.EditCargoType(NewCargoType)
 
 }
+
+func AddCargoType(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{}, Error error) {
+	ORMElement, Error := ORMs.FindByName("CargoTypesORM")
+	if Error != nil {
+
+		return
+	}
+	CargoTypesORM := ORMElement.(*ORM.CargoTypesORM)
+	var NewCargoType ORM.CargoType
+	Error = json.Unmarshal(Message.Body, &NewCargoType)
+	if Error != nil {
+
+		return
+	}
+
+	return CargoTypesORM.AddCargoType(NewCargoType)
+
+}
