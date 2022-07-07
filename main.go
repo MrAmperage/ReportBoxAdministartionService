@@ -21,8 +21,6 @@ func main() {
 	OrganizationsORM.SetName("OrganizationsORM")
 	ManufacturersORM := &ORM.ManufacturersORM{}
 	ManufacturersORM.SetName("ManufacturersORM")
-	SchemeORM := &ORM.SchemeORM{}
-	SchemeORM.SetName("SchemeORM")
 	UnitStatesORM := &ORM.UnitStatesORM{}
 	UnitStatesORM.SetName("UnitStatesORM")
 	UserORM := &ORM.UserORM{}
@@ -47,7 +45,6 @@ func main() {
 	ReportBoxDatabase.ORMs.Add(TopMenuORM)
 	ReportBoxDatabase.ORMs.Add(UnitTypesORM)
 	ReportBoxDatabase.ORMs.Add(UserORM)
-	ReportBoxDatabase.ORMs.Add(SchemeORM)
 	ReportBoxDatabase.ORMs.Add(UnitStatesORM)
 	ErrorDatabaseConnection := AuthenticationService.WebCore.PostgreSQL.StartDatabaseConnections()
 	if ErrorDatabaseConnection != nil {
