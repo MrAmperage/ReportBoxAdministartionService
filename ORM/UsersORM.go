@@ -42,7 +42,7 @@ func (UserORM *UserORM) GetUsers() (Users []User, Error error) {
 		return
 	}
 	for Index := range Users {
-		Error = UserORM.ConnectionLink.Model(Users[Index]).Association("Role").Find(Users[Index].Role)
+		Error = UserORM.ConnectionLink.Model(Users[Index]).Association("Role").Find(&Users[Index].Role)
 		if Error != nil {
 			return
 		}
