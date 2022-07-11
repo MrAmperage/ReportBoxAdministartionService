@@ -5,6 +5,7 @@ import (
 
 	"github.com/MrAmperage/GoWebStruct/WebCore/Modules/ORMModule"
 	"github.com/MrAmperage/ReportBoxAdministartionService/ORM"
+	"github.com/gofrs/uuid"
 	"github.com/streadway/amqp"
 )
 
@@ -22,15 +23,17 @@ func AddUser(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{}, 
 
 func DeleteUser(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{}, Error error) {
 
-	Username := string(Message.Body)
 	ORMElement, Error := ORMs.FindByName("UserORM")
 	if Error != nil {
 
 		return
 	}
 	UserORM := ORMElement.(*ORM.UserORM)
-
-	return "Пользователь удален", UserORM.DeleteUser(Username).Error
+	Uuid, Error := uuid.FromString(string(Message.Body))
+	if Error != nil {
+		return
+	}
+	return "Пользователь удален", UserORM.DeleteUser(Uuid).Error
 }
 
 func EditUser(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{}, Error error) {
@@ -54,7 +57,11 @@ func GetUsers(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{},
 	}
 	UserORM := ORMElement.(*ORM.UserORM)
 	if len(Message.Body) != 0 {
-		return UserORM.GetUser(string(Message.Body))
+		UUid, Error := uuid.FromString(string(Message.Body))
+		if Error != nil {
+			return nil, Error
+		}
+		return UserORM.GetUser(UUid)
 	} else {
 		return UserORM.GetUsers()
 	}
