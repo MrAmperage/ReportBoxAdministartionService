@@ -33,11 +33,14 @@ func main() {
 	TransportTypeORM.SetName("TransportTypesORM")
 	CargoTypesORM := &ORM.CargoTypesORM{}
 	CargoTypesORM.SetName("CargoTypesORM")
+	RolesORM := &ORM.RolesORM{}
+	RolesORM.SetName("RolesORM")
 
 	ReportBoxDatabase, Error := AuthenticationService.WebCore.PostgreSQL.FindByName("ReportBoxDatabase")
 	if Error != nil {
 		fmt.Println(Error)
 	}
+	ReportBoxDatabase.ORMs.Add(RolesORM)
 	ReportBoxDatabase.ORMs.Add(CargoTypesORM)
 	ReportBoxDatabase.ORMs.Add(ManufacturersORM)
 	ReportBoxDatabase.ORMs.Add(TransportTypeORM)
@@ -101,6 +104,8 @@ func main() {
 	Subscribe.MessageEmmiter.Handler("CargoTypes", Controllers.DeleteCargoType).Method("DELETE")
 	Subscribe.MessageEmmiter.Handler("CargoTypes", Controllers.EditCargoType).Method("PATCH")
 	Subscribe.MessageEmmiter.Handler("CargoTypes", Controllers.AddCargoType).Method("POST")
+	//Роли
+	Subscribe.MessageEmmiter.Handler("Roles", Controllers.GetRoles).Method("GET")
 
 	Subscribe.MessageProcessing(&ReportBoxDatabase.ORMs)
 
