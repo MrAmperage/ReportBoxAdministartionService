@@ -9,8 +9,8 @@ import (
 )
 
 type User struct {
-	Id        uuid.UUID `gorm:"primary_key;type:uuid;default:uuid_generate_v4()"`
-	Username  string    `gorm:"primaryKey;not null;username"`
+	Id        uuid.UUID `gorm:"primaryKey;type:uuid;default:uuid_generate_v4()"`
+	Username  string    `gorm:"not null;username"`
 	Password  string    `gorm:"not null;password"`
 	Enabled   bool      `gorm:"not null;enabled"`
 	RoleId    string    `gorm:"not null;rolename"`
@@ -34,7 +34,7 @@ func (UserORM *UserORM) AddUser(NewUser User) (SQLResult *gorm.DB) {
 }
 
 func (UserORM *UserORM) EditUser(NewUser User) (User, error) {
-	return NewUser, UserORM.ConnectionLink.Save(&NewUser).Error
+	return NewUser, UserORM.ConnectionLink.Model(&NewUser).Save(&NewUser).Error
 }
 
 func (UserORM *UserORM) GetUsers() (Users []User, Error error) {
