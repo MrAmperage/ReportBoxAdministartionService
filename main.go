@@ -24,7 +24,7 @@ func main() {
 	UnitStatesORM := &ORM.UnitStatesORM{}
 	UnitStatesORM.SetName("UnitStatesORM")
 	UserORM := &ORM.UserORM{}
-	UserORM.SetName("UserORM")
+	UserORM.SetName("UsersORM")
 	UnitTypesORM := &ORM.UnitTypesORM{}
 	UnitTypesORM.SetName("UnitTypesORM")
 	TopMenuORM := &ORM.TopMenuORM{}

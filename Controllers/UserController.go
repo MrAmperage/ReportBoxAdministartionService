@@ -12,7 +12,7 @@ import (
 func AddUser(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{}, Error error) {
 	var NewUser ORM.User
 	json.Unmarshal(Message.Body, &NewUser)
-	ORMElement, Error := ORMs.FindByName("UserORM")
+	ORMElement, Error := ORMs.FindByName("UsersORM")
 	if Error != nil {
 
 		return
@@ -23,7 +23,7 @@ func AddUser(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{}, 
 
 func DeleteUser(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{}, Error error) {
 
-	ORMElement, Error := ORMs.FindByName("UserORM")
+	ORMElement, Error := ORMs.FindByName("UsersORM")
 	if Error != nil {
 
 		return
@@ -39,7 +39,7 @@ func DeleteUser(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{
 func EditUser(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{}, Error error) {
 	var EditUser ORM.User
 	json.Unmarshal(Message.Body, &EditUser)
-	ORMElement, Error := ORMs.FindByName("UserORM")
+	ORMElement, Error := ORMs.FindByName("UsersORM")
 	if Error != nil {
 
 		return
@@ -50,7 +50,7 @@ func EditUser(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{},
 }
 
 func GetUsers(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{}, Error error) {
-	ORMElement, Error := ORMs.FindByName("UserORM")
+	ORMElement, Error := ORMs.FindByName("UsersORM")
 	if Error != nil {
 
 		return

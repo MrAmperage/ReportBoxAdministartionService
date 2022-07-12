@@ -34,7 +34,6 @@ func (UserORM *UserORM) AddUser(NewUser User) (SQLResult *gorm.DB) {
 }
 
 func (UserORM *UserORM) EditUser(NewUser User) (SQLResult *gorm.DB) {
-
 	return UserORM.ConnectionLink.Updates(&NewUser)
 }
 
@@ -57,5 +56,10 @@ func (UserORM *UserORM) GetUsers() (Users []User, Error error) {
 
 func (UserORM *UserORM) GetUser(Uuid uuid.UUID) (User User, Error error) {
 	User.Id = Uuid
-	return User, UserORM.ConnectionLink.Take(&User).Error
+	Error = UserORM.ConnectionLink.Model(User).Take(&User).Error
+	if Error != nil {
+		return
+	}
+
+	return User, UserORM.ConnectionLink.Model(User).Association("Role").Find(&User.Role)
 }
