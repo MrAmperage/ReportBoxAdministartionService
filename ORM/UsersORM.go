@@ -14,7 +14,7 @@ type User struct {
 	Password  string    `gorm:"not null;password"`
 	Enabled   bool      `gorm:"not null;enabled"`
 	RoleId    string    `gorm:"not null;rolename"`
-	Role      Role      `gorm:"foreignkey:id;references:RoleId"`
+	Role      Role      `gorm:"foreignkey:Id;references:RoleId"`
 	StartDate time.Time `gorm:"not null;start_date"`
 	EndDate   time.Time `gorm:"not null;end_date"`
 }
