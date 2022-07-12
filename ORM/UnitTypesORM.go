@@ -29,5 +29,5 @@ func (UnitTypesORM *UnitTypesORM) AddUnitType(NewUnitType UnitType) (UnitType, e
 }
 
 func (UnitTypesORM *UnitTypesORM) EditUnitType(NewUnitType UnitType) (UnitType, error) {
-	return NewUnitType, UnitTypesORM.ConnectionLink.Updates(&NewUnitType).Error
+	return NewUnitType, UnitTypesORM.ConnectionLink.Save(&NewUnitType).Error
 }

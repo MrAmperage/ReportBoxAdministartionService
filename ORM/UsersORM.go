@@ -33,8 +33,8 @@ func (UserORM *UserORM) AddUser(NewUser User) (SQLResult *gorm.DB) {
 	return UserORM.ConnectionLink.Create(&NewUser)
 }
 
-func (UserORM *UserORM) EditUser(NewUser User) (SQLResult *gorm.DB) {
-	return UserORM.ConnectionLink.Updates(&NewUser)
+func (UserORM *UserORM) EditUser(NewUser User) (User, error) {
+	return NewUser, UserORM.ConnectionLink.Save(&NewUser).Error
 }
 
 func (UserORM *UserORM) GetUsers() (Users []User, Error error) {

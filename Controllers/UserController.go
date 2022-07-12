@@ -45,7 +45,7 @@ func EditUser(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{},
 		return
 	}
 	UserORM := ORMElement.(*ORM.UserORM)
-	return "Пользователь изменен", UserORM.EditUser(EditUser).Error
+	return UserORM.EditUser(EditUser)
 
 }
 

@@ -27,7 +27,7 @@ func (UnitStatesORM *UnitStatesORM) DeleteUnitState(UnitStateId uuid.UUID) (Erro
 }
 
 func (UnitStatesORM *UnitStatesORM) EditUnitType(NewUnitState UnitState) (UnitState, error) {
-	return NewUnitState, UnitStatesORM.ConnectionLink.Updates(&NewUnitState).Error
+	return NewUnitState, UnitStatesORM.ConnectionLink.Save(&NewUnitState).Error
 }
 
 func (UnitStatesORM *UnitStatesORM) AddUnitState(NewUnitState UnitState) (UnitState, error) {
