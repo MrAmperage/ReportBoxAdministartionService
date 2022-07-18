@@ -1,6 +1,8 @@
 package Controllers
 
 import (
+	"encoding/json"
+
 	"github.com/MrAmperage/GoWebStruct/WebCore/Modules/ORMModule"
 	"github.com/MrAmperage/ReportBoxAdministartionService/ORM"
 	"github.com/gofrs/uuid"
@@ -23,5 +25,18 @@ func GetRoles(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{},
 	} else {
 		return RolesORM.GetRoles()
 	}
+
+}
+
+func EditRole(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{}, Error error) {
+	var EditRole ORM.Role
+	json.Unmarshal(Message.Body, &EditRole)
+	ORMElement, Error := ORMs.FindByName("RolesORM")
+	if Error != nil {
+
+		return
+	}
+	RolesORM := ORMElement.(*ORM.RolesORM)
+	return RolesORM.EditRole(EditRole)
 
 }

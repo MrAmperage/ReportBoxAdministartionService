@@ -25,3 +25,7 @@ func (RolesORM *RolesORM) GetRole(UUID uuid.UUID) (Role Role, Error error) {
 	Role.Id = UUID
 	return Role, RolesORM.ConnectionLink.Take(&Role).Error
 }
+
+func (RolesORM *RolesORM) EditRole(NewRole Role) (Role, error) {
+	return NewRole, RolesORM.ConnectionLink.Save(&NewRole).Error
+}

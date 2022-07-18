@@ -106,6 +106,7 @@ func main() {
 	Subscribe.MessageEmmiter.Handler("CargoTypes", Controllers.AddCargoType).Method("POST")
 	//Роли
 	Subscribe.MessageEmmiter.Handler("Roles", Controllers.GetRoles).Method("GET")
+	Subscribe.MessageEmmiter.Handler("Roles", Controllers.EditRole).Method("PATCH")
 
 	Subscribe.MessageProcessing(&ReportBoxDatabase.ORMs)
 
