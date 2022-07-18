@@ -27,7 +27,17 @@ func GetRoles(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{},
 	}
 
 }
+func AddRole(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{}, Error error) {
+	var NewRole ORM.Role
+	json.Unmarshal(Message.Body, &NewRole)
+	ORMElement, Error := ORMs.FindByName("RolesORM")
+	if Error != nil {
 
+		return
+	}
+	RolesORM := ORMElement.(*ORM.RolesORM)
+	return "Роль добавлена", RolesORM.AddRole(NewRole).Error
+}
 func EditRole(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{}, Error error) {
 	var EditRole ORM.Role
 	json.Unmarshal(Message.Body, &EditRole)

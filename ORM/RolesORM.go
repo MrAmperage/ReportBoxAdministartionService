@@ -4,6 +4,7 @@ import (
 	"github.com/MrAmperage/GoWebStruct/WebCore/Modules/ORMModule"
 	"github.com/gofrs/uuid"
 	"github.com/lib/pq"
+	"gorm.io/gorm"
 )
 
 type Role struct {
@@ -20,7 +21,10 @@ func (RolesORM *RolesORM) GetRoles() (Roles []Role, Error error) {
 
 	return Roles, RolesORM.ConnectionLink.Find(&Roles).Error
 }
+func (RolesORM *RolesORM) AddRole(NewRole Role) (SQLResult *gorm.DB) {
 
+	return RolesORM.ConnectionLink.Create(&NewRole)
+}
 func (RolesORM *RolesORM) GetRole(UUID uuid.UUID) (Role Role, Error error) {
 	Role.Id = UUID
 	return Role, RolesORM.ConnectionLink.Take(&Role).Error
