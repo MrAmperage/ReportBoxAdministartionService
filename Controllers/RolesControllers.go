@@ -50,3 +50,17 @@ func EditRole(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{},
 	return RolesORM.EditRole(EditRole)
 
 }
+func DeleteRole(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{}, Error error) {
+
+	ORMElement, Error := ORMs.FindByName("RolesORM")
+	if Error != nil {
+
+		return
+	}
+	RolesORM := ORMElement.(*ORM.RolesORM)
+	Uuid, Error := uuid.FromString(string(Message.Body))
+	if Error != nil {
+		return
+	}
+	return "Роль удалена", RolesORM.DeleteRole(Uuid).Error
+}

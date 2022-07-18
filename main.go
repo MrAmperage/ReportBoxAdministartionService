@@ -108,6 +108,7 @@ func main() {
 	Subscribe.MessageEmmiter.Handler("Roles", Controllers.GetRoles).Method("GET")
 	Subscribe.MessageEmmiter.Handler("Roles", Controllers.EditRole).Method("PATCH")
 	Subscribe.MessageEmmiter.Handler("Roles", Controllers.AddRole).Method("POST")
+	Subscribe.MessageEmmiter.Handler("Roles", Controllers.DeleteRole).Method("DELETE")
 
 	Subscribe.MessageProcessing(&ReportBoxDatabase.ORMs)
 

@@ -33,3 +33,9 @@ func (RolesORM *RolesORM) GetRole(UUID uuid.UUID) (Role Role, Error error) {
 func (RolesORM *RolesORM) EditRole(NewRole Role) (Role, error) {
 	return NewRole, RolesORM.ConnectionLink.Save(&NewRole).Error
 }
+
+func (RolesORM *RolesORM) DeleteRole(Uuid uuid.UUID) (SQLResult *gorm.DB) {
+
+	return RolesORM.ConnectionLink.Delete(&Role{Id: Uuid})
+
+}
