@@ -9,13 +9,23 @@ type Organization struct {
 	Id       uuid.UUID `gorm:"primary_key;type:uuid;default:uuid_generate_v4()"`
 	Caption  string    `gorm:"not null;caption"`
 	Internal bool      `gorm:"not null;internal"`
+	Areas    []Area
 }
 type OrganizationsORM struct {
 	ORMModule.ORM
 }
 
 func (OrganizationsORM *OrganizationsORM) GetOrganizations() (Organizations []Organization, Error error) {
-	return Organizations, OrganizationsORM.ConnectionLink.Find(&Organizations).Error
+	OrganizationsORM.ConnectionLink.Find(&Organizations)
+	for Index := range Organizations {
+
+		Error = OrganizationsORM.ConnectionLink.Model(Organizations[Index]).Association("Areas").Find(&Organizations[Index].Areas)
+		if Error != nil {
+			return
+		}
+
+	}
+	return Organizations, Error
 }
 
 func (OrganizationsORM *OrganizationsORM) GetOrganization(UUID uuid.UUID) (Organization Organization, Error error) {

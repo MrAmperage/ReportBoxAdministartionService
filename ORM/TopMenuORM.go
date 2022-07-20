@@ -5,7 +5,7 @@ import (
 )
 
 type TopMenu struct {
-	Caption  string `gorm:"primary_key;not null;caption"`
+	Caption  string `gorm:"not null;caption"`
 	Id       string `gorm:"not null;primary_key;id"`
 	LeftMenu []LeftMenu
 }
