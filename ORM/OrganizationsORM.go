@@ -30,6 +30,11 @@ func (OrganizationsORM *OrganizationsORM) GetOrganizations() (Organizations []Or
 
 func (OrganizationsORM *OrganizationsORM) GetOrganization(UUID uuid.UUID) (Organization Organization, Error error) {
 	Organization.Id = UUID
+	Error = OrganizationsORM.ConnectionLink.Model(Organization).Take(&Organization).Error
+	if Error != nil {
+		return
+	}
+
 	return Organization, OrganizationsORM.ConnectionLink.Model(Organization).Association("Areas").Find(&Organization.Areas)
 }
 
