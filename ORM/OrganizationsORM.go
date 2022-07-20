@@ -30,7 +30,7 @@ func (OrganizationsORM *OrganizationsORM) GetOrganizations() (Organizations []Or
 
 func (OrganizationsORM *OrganizationsORM) GetOrganization(UUID uuid.UUID) (Organization Organization, Error error) {
 	Organization.Id = UUID
-	return Organization, OrganizationsORM.ConnectionLink.Take(&Organization).Error
+	return Organization, OrganizationsORM.ConnectionLink.Model(Organization).Association("Areas").Find(&Organization.Areas)
 }
 
 func (OrganizationsORM *OrganizationsORM) DeleteOrganization(OrganizationId uuid.UUID) (Error error) {
