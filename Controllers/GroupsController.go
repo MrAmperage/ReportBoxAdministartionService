@@ -1,6 +1,8 @@
 package Controllers
 
 import (
+	"encoding/json"
+
 	"github.com/MrAmperage/GoWebStruct/WebCore/Modules/ORMModule"
 	"github.com/MrAmperage/ReportBoxAdministartionService/ORM"
 	"github.com/gofrs/uuid"
@@ -42,4 +44,21 @@ func DeleteGroup(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface
 		return
 	}
 	return "Группа удалена", GroupsORM.DeleteGroup(GroupsUUID)
+}
+
+func EditGroup(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{}, Error error) {
+	ORMElement, Error := ORMs.FindByName("GroupsORM")
+	if Error != nil {
+
+		return
+	}
+	GroupsORM := ORMElement.(*ORM.GroupsORM)
+	var NewGroup ORM.Group
+	Error = json.Unmarshal(Message.Body, &NewGroup)
+	if Error != nil {
+
+		return
+	}
+	return GroupsORM.EditGroup(NewGroup)
+
 }

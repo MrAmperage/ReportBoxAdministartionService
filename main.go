@@ -73,6 +73,7 @@ func main() {
 	//Группы
 	Subscribe.MessageEmmiter.Handler("Groups", Controllers.GetGroups).Method("GET")
 	Subscribe.MessageEmmiter.Handler("Groups", Controllers.DeleteGroup).Method("DELETE")
+	Subscribe.MessageEmmiter.Handler("Groups", Controllers.EditGroup).Method("PATCH")
 	//Производители
 	Subscribe.MessageEmmiter.Handler("Manufacturers", Controllers.AddManufacturer).Method("POST")
 	Subscribe.MessageEmmiter.Handler("Manufacturers", Controllers.GetManufacturers).Method("GET")
