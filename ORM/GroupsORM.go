@@ -22,3 +22,7 @@ func (GroupsORM *GroupsORM) GetGroup(UUID uuid.UUID) (Group Group, Error error) 
 	Group.Id = UUID
 	return Group, GroupsORM.ConnectionLink.Take(&Group).Error
 }
+
+func (GroupsORM *GroupsORM) DeleteGroup(GroupId uuid.UUID) (Error error) {
+	return GroupsORM.ConnectionLink.Delete(&Group{Id: GroupId}).Error
+}

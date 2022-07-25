@@ -29,3 +29,17 @@ func GetGroups(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{}
 	}
 
 }
+
+func DeleteGroup(Message amqp.Delivery, ORMs ORMModule.ORMArray) (Data interface{}, Error error) {
+	ORMElement, Error := ORMs.FindByName("GroupsORM")
+	if Error != nil {
+
+		return
+	}
+	GroupsORM := ORMElement.(*ORM.GroupsORM)
+	GroupsUUID, Error := uuid.FromString(string(Message.Body))
+	if Error != nil {
+		return
+	}
+	return "Группа удалена", GroupsORM.DeleteGroup(GroupsUUID)
+}
