@@ -17,6 +17,8 @@ func main() {
 		fmt.Println(ErrorInitService)
 		os.Exit(0)
 	}
+	GroupsORM := &ORM.GroupsORM{}
+	GroupsORM.SetName("GroupsORM")
 	OrganizationsORM := &ORM.OrganizationsORM{}
 	OrganizationsORM.SetName("OrganizationsORM")
 	ManufacturersORM := &ORM.ManufacturersORM{}
@@ -49,6 +51,7 @@ func main() {
 	ReportBoxDatabase.ORMs.Add(UnitTypesORM)
 	ReportBoxDatabase.ORMs.Add(UserORM)
 	ReportBoxDatabase.ORMs.Add(UnitStatesORM)
+	ReportBoxDatabase.ORMs.Add(GroupsORM)
 	ErrorDatabaseConnection := AuthenticationService.WebCore.PostgreSQL.StartDatabaseConnections()
 	if ErrorDatabaseConnection != nil {
 
@@ -67,6 +70,8 @@ func main() {
 	if Error != nil {
 		fmt.Println(Error)
 	}
+	//Группы
+	Subscribe.MessageEmmiter.Handler("Groups", Controllers.GetGroups).Method("GET")
 	//Производители
 	Subscribe.MessageEmmiter.Handler("Manufacturers", Controllers.AddManufacturer).Method("POST")
 	Subscribe.MessageEmmiter.Handler("Manufacturers", Controllers.GetManufacturers).Method("GET")
