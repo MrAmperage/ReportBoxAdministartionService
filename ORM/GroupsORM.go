@@ -6,8 +6,9 @@ import (
 )
 
 type Group struct {
-	Id      uuid.UUID `gorm:"primary_key;type:uuid;default:uuid_generate_v4()"`
-	Caption string    `gorm:"not null;caption"`
+	Id             uuid.UUID `gorm:"primary_key;type:uuid;default:uuid_generate_v4()"`
+	Caption        string    `gorm:"not null;caption"`
+	ShouldersRound string    `gorm:"not null;shoulders_round"`
 }
 
 type GroupsORM struct {
