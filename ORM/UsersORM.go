@@ -19,8 +19,8 @@ type User struct {
 	StartDate               time.Time      `gorm:"not null;start_date"`
 	EndDate                 time.Time      `gorm:"not null;end_date"`
 	RedefineGroupParameters bool           `gorm:"not null;redefine_group_parameters"`
-	ShouldersRound          string         `gorm:"shoulders_round"`
-	ShouldersPrecision      int            `gorm:"shoulders_precision"`
+	ShouldersRound          string         `gorm:"default:Math;shoulders_round"`
+	ShouldersPrecision      int            `gorm:"default:1;shoulders_precision"`
 	GroupsAccess            pq.StringArray `gorm:"not null;type:varchar[];default:array[]::varchar[];groups_access"`
 }
 
