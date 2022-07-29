@@ -5,21 +5,23 @@ import (
 
 	"github.com/MrAmperage/GoWebStruct/WebCore/Modules/ORMModule"
 	"github.com/gofrs/uuid"
+	"github.com/lib/pq"
 	"gorm.io/gorm"
 )
 
 type User struct {
-	Id                      uuid.UUID `gorm:"primaryKey;type:uuid;default:uuid_generate_v4()"`
-	Username                string    `gorm:"not null;username"`
-	Password                string    `gorm:"not null;password"`
-	Enabled                 bool      `gorm:"not null;enabled"`
-	RoleId                  string    `gorm:"not null;rolename"`
-	Role                    Role      `gorm:"foreignkey:Id;references:RoleId"`
-	StartDate               time.Time `gorm:"not null;start_date"`
-	EndDate                 time.Time `gorm:"not null;end_date"`
-	RedefineGroupParameters bool      `gorm:"not null;redefine_group_parameters"`
-	ShouldersRound          string    `gorm:"shoulders_round"`
-	ShouldersPrecision      int       `gorm:"shoulders_precision"`
+	Id                      uuid.UUID      `gorm:"primaryKey;type:uuid;default:uuid_generate_v4()"`
+	Username                string         `gorm:"not null;username"`
+	Password                string         `gorm:"not null;password"`
+	Enabled                 bool           `gorm:"not null;enabled"`
+	RoleId                  string         `gorm:"not null;rolename"`
+	Role                    Role           `gorm:"foreignkey:Id;references:RoleId"`
+	StartDate               time.Time      `gorm:"not null;start_date"`
+	EndDate                 time.Time      `gorm:"not null;end_date"`
+	RedefineGroupParameters bool           `gorm:"not null;redefine_group_parameters"`
+	ShouldersRound          string         `gorm:"shoulders_round"`
+	ShouldersPrecision      int            `gorm:"shoulders_precision"`
+	GroupsAccess            pq.StringArray `gorm:"not null;type:varchar[];default:array[]::varchar[];groups_access"`
 }
 
 type UserORM struct {
